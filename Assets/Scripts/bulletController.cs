@@ -7,8 +7,8 @@ public class bulletController : MonoBehaviour
 
     public Vector2 dir;
     public int speed;
+    public int damage;
     
-    private int _damage;
     private Rigidbody2D _rb;
 
     void Start()
@@ -18,22 +18,16 @@ public class bulletController : MonoBehaviour
 
     void Update()
     {
-        _rb.position += dir * speed * Time.deltaTime;
+        _rb.position += dir.normalized * speed * Time.deltaTime;
+        if(dir != Vector2.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, dir);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 100f);
+        }
     }
 
     void OnBecameInvisible()
     {
         Destroy(gameObject);
-    }
-
-    public void setDamage(int damage)
-    {
-        _damage = damage;
-        return;
-    }
-
-    public int getDamage()
-    {
-        return _damage;
     }
 }

@@ -30,7 +30,7 @@ public class bulletPoint : MonoBehaviour
                 break;
         }
         
-        spawnedBullet.GetComponent<bulletController>().setDamage(damage);
+        spawnedBullet.GetComponent<bulletController>().damage = damage;
         spawnedBullet.GetComponent<bulletController>().speed = speed;
         spawnedBullet.GetComponent<bulletController>().dir = dir;
         return;

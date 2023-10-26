@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class playerController : MonoBehaviour
@@ -33,12 +35,15 @@ public class playerController : MonoBehaviour
 
         move();
         shoot();
+
+        Debug.Log(score);
+
         _fireTimer += Time.deltaTime;
     }
 
     void move()
     {
-        Vector2 direction = _playerActions.PlayerMap.movement.ReadValue<Vector2>();
+        Vector2 direction = _playerActions.PlayerMap.movement.ReadValue<Vector2>().normalized;
         _rb.position += direction * (_playerActions.PlayerMap.focus.ReadValue<float>() > 0 ? speed/3 : speed) * Time.deltaTime;
     }
 
@@ -51,19 +56,26 @@ public class playerController : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        _lives -= 1;
+    }
+
     void OnTriggerEnter2D(Collider2D col)
     {
         GameObject collidedObj = col.gameObject;
         switch(collidedObj.tag)
         {
             case "Scrap":
-                score += collidedObj.GetComponent<scrapController>().getValue();
+                score += collidedObj.GetComponent<scrapController>().value;
                 break;
             
             default:
                 _lives -= 1;
-                break;        
+                break;
         }
+        
+        Destroy(collidedObj);
     }
 
     //* Input System Init
