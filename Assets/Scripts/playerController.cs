@@ -30,6 +30,7 @@ public class playerController : MonoBehaviour
         if(_lives < 0)
         {
             Debug.Log("COMO PDOES SER TAN MALO");
+            Instantiate(Resources.Load("ExplosionVFX") as GameObject, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
 

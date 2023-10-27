@@ -24,6 +24,7 @@ public class enemyController : MonoBehaviour
         if(health <= 0)
         {
             Instantiate(Resources.Load("Scrap") as GameObject, transform.position, Quaternion.identity);
+            Instantiate(Resources.Load("ExplosionVFX") as GameObject, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
         shoot();
@@ -47,7 +48,7 @@ public class enemyController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         GameObject collidingObj = col.gameObject;
-        if(collidingObj.tag == "Bullet")
+        if(collidingObj.tag == "Bullet" && collidingObj.transform.parent.tag != "Enemy")
         {
             health -= collidingObj.GetComponent<bulletController>().damage;
             Destroy(collidingObj);

@@ -16,7 +16,7 @@ public class LevelDirector : MonoBehaviour
         if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
             GameObject spawnedEnemy = Instantiate(Resources.Load("ShooterEnemy") as GameObject, new Vector2(0,2.5f), Quaternion.identity);
-            spawnedEnemy.GetComponent<enemyController>().fireDelay = 0f;
+            spawnedEnemy.GetComponent<enemyController>().fireDelay = 0.25f;
         }
     }
 }
