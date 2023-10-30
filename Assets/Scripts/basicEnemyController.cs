@@ -48,7 +48,7 @@ public class enemyController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         GameObject collidingObj = col.gameObject;
-        if(collidingObj.tag == "Bullet" && collidingObj.transform.parent.tag != "Enemy")
+        if(collidingObj.tag == "Bullet")
         {
             health -= collidingObj.GetComponent<bulletController>().damage;
             Destroy(collidingObj);

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class playerController : MonoBehaviour
@@ -11,12 +10,16 @@ public class playerController : MonoBehaviour
     public float fireDelay = 0.125f;
     public int score = 0;
     
-    private int _lives = 3;
     private float _fireTimer = 0f;
     private float _powerLevel = 1;
+    
     private bulletPoint _bulletOrigin;
     private PlayerActions _playerActions;
     private Rigidbody2D _rb;
+    
+    private int _lives = 3;
+    private bool _invis = false;
+    private float _invisTimer = 0f;
 
     void Start()
     {
@@ -34,11 +37,15 @@ public class playerController : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if(_invis && _invisTimer >= 1f)
+        {
+            toggleInvis();
+        }
+
         move();
         shoot();
 
-        Debug.Log(score);
-
+        _invisTimer += Time.deltaTime;
         _fireTimer += Time.deltaTime;
     }
 
@@ -57,9 +64,24 @@ public class playerController : MonoBehaviour
         }
     }
 
+    void toggleInvis()
+    {
+        if(!_invis)
+        {
+            transform.GetComponent<CircleCollider2D>().enabled = _invis;
+            Instantiate(Resources.Load("HitVFX") as GameObject, transform);
+            _invis = !_invis;
+            _invisTimer = 0f;
+        } else {
+            transform.GetComponent<CircleCollider2D>().enabled = _invis;
+            _invis = !_invis;
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         _lives -= 1;
+        toggleInvis();
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -72,7 +94,9 @@ public class playerController : MonoBehaviour
                 break;
             
             default:
+                Debug.Log("te pego un gil");
                 _lives -= 1;
+                toggleInvis();
                 break;
         }
         

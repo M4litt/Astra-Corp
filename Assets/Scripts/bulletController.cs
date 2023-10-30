@@ -22,7 +22,7 @@ public class bulletController : MonoBehaviour
         if(dir != Vector2.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, dir);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 100f);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 999f);
         }
     }
 

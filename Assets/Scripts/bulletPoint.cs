@@ -17,7 +17,7 @@ public class bulletPoint : MonoBehaviour
 
     public void shoot(GameObject bullet, Vector2 dir, int speed, int damage)
     {
-        GameObject spawnedBullet = Instantiate(bullet, transform);
+        GameObject spawnedBullet = Instantiate(bullet, transform.position, Quaternion.identity);
         //* Prevent self collition
         switch (transform.parent.tag)
         {
