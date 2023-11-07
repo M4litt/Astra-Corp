@@ -9,13 +9,16 @@ public class enemyController : MonoBehaviour
     public float fireDelay = 0.25f;
 
     private Rigidbody2D _rb;
-    private bulletPoint _shooter;
+    private bulletPoint _lShooter;
+    private bulletPoint _rShooter;
+    private int _currentShooter;
     private float _fireTimer = 0f;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _shooter = transform.GetChild(0).GetComponent<bulletPoint>();
+        _lShooter = transform.GetChild(0).GetComponent<bulletPoint>();
+        _rShooter = transform.GetChild(1).GetComponent<bulletPoint>();
     }
 
     // Update is called once per frame
@@ -35,7 +38,8 @@ public class enemyController : MonoBehaviour
     {        
         if(_fireTimer >= fireDelay && fireDelay != 0)
         {
-            _shooter.GetComponent<bulletPoint>().shoot(Resources.Load("EnemyBullet") as GameObject, new Vector2(0,-1), 25, 1);
+            (_currentShooter == 0 ? _lShooter : _rShooter).GetComponent<bulletPoint>().shoot(Resources.Load("EnemyBullet") as GameObject, new Vector2(0,-1), 25, 1);
+            _currentShooter += _currentShooter == 0 ? 1 : -1;
             _fireTimer = 0;
         }
     }

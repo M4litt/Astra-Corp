@@ -29,9 +29,9 @@ Transform:
   m_GameObject: {fileID: 1194381685764808729}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.42, y: -0.596, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8129585693916954715}
   m_Father: {fileID: 0}
@@ -149,7 +149,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.18}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.075
 --- !u!114 &2968248047853069768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +163,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  basicShot: {fileID: 1976961984113117242, guid: 242e5ce31a5c6567da97863b1d8fd45f, type: 3}
   fireDelay: 0.125
   score: 0
 --- !u!1001 &7159428721515267197
@@ -180,7 +179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1407781018573800486, guid: 1466b9986deb276d0a2831288bb9f0d0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.66
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 1407781018573800486, guid: 1466b9986deb276d0a2831288bb9f0d0, type: 3}
       propertyPath: m_LocalPosition.z
