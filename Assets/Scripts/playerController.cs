@@ -91,16 +91,25 @@ public class playerController : MonoBehaviour
         {
             case "Scrap":
                 score += collidedObj.GetComponent<scrapController>().value;
+                Destroy(collidedObj);
                 break;
             
-            default:
-                Debug.Log("te pego un gil");
+            case "EnemyBullet":
+                _lives -= 1;
+                Destroy(collidedObj);
+                toggleInvis();
+                break;
+            
+            case "Enemy":
                 _lives -= 1;
                 toggleInvis();
                 break;
+
+            default:
+                Debug.Log("TF DID U DO");
+                break;
         }
         
-        Destroy(collidedObj);
     }
 
     //* Input System Init

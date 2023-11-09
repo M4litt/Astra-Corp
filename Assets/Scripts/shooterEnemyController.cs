@@ -8,6 +8,7 @@ public class enemyController : MonoBehaviour
     public int health = 5;
     public float fireDelay = 0.25f;
 
+    private float speed = 5f;
     private Rigidbody2D _rb;
     private bulletPoint _lShooter;
     private bulletPoint _rShooter;
@@ -30,8 +31,13 @@ public class enemyController : MonoBehaviour
             Instantiate(Resources.Load("ExplosionVFX") as GameObject, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
-        shoot();
+
+        _rb.position += new Vector2(0,-1) * speed * Time.deltaTime;
+
+        if(speed == 0) shoot();
+
         _fireTimer += Time.deltaTime;
+        speed -= speed == 0 ? 0 : 0.25f;
     }
 
     void shoot()
@@ -52,10 +58,10 @@ public class enemyController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         GameObject collidingObj = col.gameObject;
-        if(collidingObj.tag == "Bullet")
-        {
-            health -= collidingObj.GetComponent<bulletController>().damage;
-            Destroy(collidingObj);
-        }
+        if(collidingObj.tag != "Bullet") return;
+        
+        health -= collidingObj.GetComponent<bulletController>().damage;
+        Destroy(collidingObj);
+        
     }
 }
