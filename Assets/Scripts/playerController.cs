@@ -45,6 +45,11 @@ public class playerController : MonoBehaviour
         move();
         shoot();
 
+        Vector3 minScreenBounds = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
+	    Vector3 maxScreenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+
+		transform.position = new Vector3(Mathf.Clamp(transform.position.x, minScreenBounds.x + 0.25f, maxScreenBounds.x - 0.25f),Mathf.Clamp(transform.position.y, minScreenBounds.y + 0.3f, maxScreenBounds.y - 0.3f), transform.position.z);
+
         _invisTimer += Time.deltaTime;
         _fireTimer += Time.deltaTime;
     }

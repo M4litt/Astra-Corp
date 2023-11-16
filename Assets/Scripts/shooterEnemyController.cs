@@ -44,7 +44,7 @@ public class enemyController : MonoBehaviour
     {        
         if(_fireTimer >= fireDelay && fireDelay != 0)
         {
-            (_currentShooter == 0 ? _lShooter : _rShooter).GetComponent<bulletPoint>().shoot(Resources.Load("EnemyBullet") as GameObject, new Vector2(0,-1), 25, 1);
+            (_currentShooter == 0 ? _lShooter : _rShooter).GetComponent<bulletPoint>().shoot(Resources.Load("EnemyBullet") as GameObject, new Vector2(0,-1), 15, 1);
             _currentShooter += _currentShooter == 0 ? 1 : -1;
             _fireTimer = 0;
         }

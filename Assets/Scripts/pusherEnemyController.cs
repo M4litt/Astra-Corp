@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,9 +6,9 @@ using UnityEngine;
 public class pusherEnemyController : MonoBehaviour
 {
 
-    public int speed = 15;
     public Vector2 dir = new Vector2(0,1);
-
+    
+    private Func<float, float> salt;
     private Rigidbody2D _rb;
     private float _aliveTime = 0;
 
@@ -21,12 +22,19 @@ public class pusherEnemyController : MonoBehaviour
     void Update()
     {
         move();
-        _rb.position += (new Vector2(0,-1).normalized * 2.5f + (new Vector2(1, 0) * Mathf.Cos(_aliveTime*5)*10)) * Time.deltaTime;
+        fixRotation();
         _aliveTime += Time.deltaTime;
     }
 
     void move()
     {
+        _rb.position += (new Vector2(0,-1).normalized * 2.5f + (new Vector2(1, 0) * salt(_aliveTime))) * Time.deltaTime;
+    }
+
+    void fixRotation()
+    {
+        Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, new Vector2(-salt(_aliveTime), 1) );
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 999f);
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -36,6 +44,11 @@ public class pusherEnemyController : MonoBehaviour
         Instantiate(Resources.Load("Scrap") as GameObject, transform.position, Quaternion.identity);
         Instantiate(Resources.Load("ExplosionVFX") as GameObject, transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    public void setSalt(Func<float, float> aux)
+    {
+        this.salt = aux;
     }
 
     void OnBecameInvisible()
